@@ -15,12 +15,56 @@ namespace RestWithAspNet.Controllers
 		}
 
 		[HttpGet("sum/{firstNumber}/{secondNumber}")]
-		public IActionResult Get(string firstNumber, string secondNumber)
+		public IActionResult Sum(string firstNumber, string secondNumber)
 		{
 			if (IsNumeric(firstNumber) && IsNumeric(firstNumber))
 			{
 				var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
 				return Ok(sum.ToString());
+			}
+			return BadRequest("Invalid Input");
+		}
+
+		[HttpGet("minus/{firstNumber}/{secondNumber}")]
+		public IActionResult Minus(string firstNumber, string secondNumber)
+		{
+			if (IsNumeric(firstNumber) && IsNumeric(firstNumber))
+			{
+				var minus = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
+				return Ok(minus.ToString());
+			}
+			return BadRequest("Invalid Input");
+		}
+
+		[HttpGet("div/{firstNumber}/{secondNumber}")]
+		public IActionResult Div(string firstNumber, string secondNumber)
+		{
+			if (IsNumeric(firstNumber) && IsNumeric(firstNumber))
+			{
+				var div = ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber);
+				return Ok(div.ToString());
+			}
+			return BadRequest("Invalid Input");
+		}
+
+		[HttpGet("mult/{firstNumber}/{secondNumber}")]
+		public IActionResult Mult(string firstNumber, string secondNumber)
+		{
+			if (IsNumeric(firstNumber) && IsNumeric(firstNumber))
+			{
+				var mult = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
+				return Ok(mult.ToString());
+			}
+			return BadRequest("Invalid Input");
+		}
+
+		[HttpGet("raiz/{firstNumber}")]
+		public IActionResult Raiz(string firstNumber)
+		{
+			if (IsNumeric(firstNumber))
+			{
+				var raiz = Math.Sqrt(ConvertToDouble(firstNumber));
+				return Ok(raiz.ToString());
 			}
 			return BadRequest("Invalid Input");
 		}
@@ -43,6 +87,16 @@ namespace RestWithAspNet.Controllers
 			if (decimal.TryParse(strNumber, out decimalValue))
 			{
 				return decimalValue;
+			}
+			return 0;
+		}
+
+		private double ConvertToDouble(string strNumber)
+		{
+			double doubleValue;
+			if (double.TryParse(strNumber, out doubleValue))
+			{
+				return doubleValue;
 			}
 			return 0;
 		}
